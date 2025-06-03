@@ -11,7 +11,6 @@ Aplicación web para gestionar ventas con clientes, productos, categorías y pro
 - Node.js
 - Express
 - MySQL (mysql2/promise)
-- dotenv (variables de entorno)
 
 ### Instalación de dependencias
 cd backend
