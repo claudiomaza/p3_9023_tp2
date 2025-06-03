@@ -1,0 +1,79 @@
+-- Tabla clientes
+CREATE TABLE clientes (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  rut VARCHAR(12) NOT NULL,
+  nombre VARCHAR(100),
+  calle VARCHAR(100),
+  numero VARCHAR(10),
+  comuna VARCHAR(50),
+  ciudad VARCHAR(50)
+);
+
+-- Tabla proveedores (faltaba)
+CREATE TABLE proveedores (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  rut VARCHAR(12) NOT NULL,
+  nombre VARCHAR(100),
+  direccion VARCHAR(200),
+  telefono VARCHAR(20),
+  pagina_web VARCHAR(100)
+);
+
+-- Tabla categorias
+CREATE TABLE categorias (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(100),
+  descripcion TEXT
+);
+
+-- Tabla productos
+CREATE TABLE productos (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(100),
+  precio DECIMAL(10,2),
+  stock INT,
+  proveedor_id INT,
+  categoria_id INT,
+  FOREIGN KEY (categoria_id) REFERENCES categorias(id),
+  FOREIGN KEY (proveedor_id) REFERENCES proveedores(id)
+);
+
+-- Tabla ventas
+CREATE TABLE ventas (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  cliente_id INT,
+  fecha DATETIME DEFAULT CURRENT_TIMESTAMP,
+  descuento DECIMAL(5,2),
+  monto_final DECIMAL(10,2),
+  FOREIGN KEY (cliente_id) REFERENCES clientes(id)
+);
+
+
+-- Agregar productos
+
+INSERT INTO productos (nombre, precio, stock, proveedor_id, categoria_id) VALUES
+('Smartphone Z10', 199990, 50, 1, 1),
+('Batidora MaxMix', 49990, 30, 2, 2),
+('Bicicleta MTB 29"', 259990, 15, 3, 3);
+
+-- Agregar categorias
+
+INSERT INTO categorias (nombre, descripcion) VALUES
+('Electrónica', 'Dispositivos electrónicos y gadgets'),
+('Hogar', 'Productos para el hogar y cocina'),
+('Deportes', 'Artículos deportivos y de fitness');
+
+-- Agregar proveedores
+
+INSERT INTO proveedores (rut, nombre, direccion, telefono, pagina_web) VALUES
+('76.456.789-0', 'TechSupplier S.A.', 'Av. Independencia 1234, Santiago', '912345678', 'https://techsupplier.cl'),
+('88.123.456-7', 'Distribuidora Delta', 'Calle Central 456, Valparaíso', '987654321', 'https://deltadistrib.cl'),
+('90.321.654-3', 'GlobalPro Ltda.', 'Ruta 5 Sur KM 20, Temuco', '922334455', 'https://globalpro.cl');
+
+-- Agregar clientes
+
+INSERT INTO clientes (rut, nombre, calle, numero, comuna, ciudad) VALUES
+('12.345.678-9', 'Juan Pérez', 'Av. Siempre Viva', '123', 'Providencia', 'Santiago'),
+('98.765.432-1', 'María González', 'Los Álamos', '456', 'Ñuñoa', 'Santiago'),
+('11.223.344-5', 'Carlos Soto', 'Las Palmeras', '789', 'La Florida', 'Santiago');
+
